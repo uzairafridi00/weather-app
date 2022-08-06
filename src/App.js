@@ -34,6 +34,17 @@ const App = () => {
     setInputValue(e.target.value);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // console.log(inputValue);
+    if (inputValue !== "") {
+      setLocation(inputValue);
+    }
+    // Select Input and clear the input value
+    const input = document.querySelector("input");
+    input.value = "";
+  };
+
   useEffect(() => {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${APIKey}`;
     axios.get(url).then((res) => {
@@ -41,7 +52,7 @@ const App = () => {
     });
   }, [location]);
 
-  console.log(data);
+  // console.log(data);
 
   if (!data) {
     return (
@@ -107,6 +118,7 @@ const App = () => {
               font-light pl-6 h-full"
             />
             <button
+              onClick={(e) => handleSubmit(e)}
               className="bg-[#1ab8ed] hover:bg-[#15abdd] w-20 h-12 rounded-full flex justify-center items-center
             transition"
             >
